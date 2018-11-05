@@ -19,12 +19,16 @@ void Simulation::initialize(int argc, char **argv) {
     cmd.parse(argc, argv);
 
     RNG.initialize(argSeed.getValue());
+    std::cout << "initialize\n";
     int nodes(argNode.getValue());
     if (nodes < 1) nodes = RNG.poisson(50);
     _network->resize(nodes);
+    std::cout << "resize\n";
+    
     double degree(argDegree.getValue());
     if (degree < 1) degree = RNG.uniform_double(1, std::sqrt(nodes));
     size_t nlink = _network->random_connect(degree);
+    std::cout << "random_connect\n";
     std::cout << _network->size() << " nodes, " << nlink << " links\n";
     maxtime = argTime.getValue();
 }
